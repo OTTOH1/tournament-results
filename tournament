@@ -1,0 +1,220 @@
+select * from posts
+select * from posts;
+select * from posts
+select * from posts;
+;
+;
+select * from posts;
+update posts set content = 'OOOPS!!!' where content like '%script%'
+select * from posts;
+;
+update posts set content = 'OOOPS!!!' where content like '%script%';
+select * from posts;
+psql help
+help
+;
+\q
+delete from posts where content like '%oops%';
+delete from posts where content like '%ooops%';
+delete from posts where content like '%OOPS%';
+\Q
+\q
+create database fishies
+\c fishies
+CREATE DATABASE fishies
+\c fishies
+postgres=# \l
+postgres=# \q
+\?
+create database fishies
+--list
+\list
+-c create database fishies
+\list
+-d fishies
+\c fishies
+CREATE DATABASE fishies;
+CREATE DATABASE fishies;
+/c fishies
+create table info ( serial integer, varchar(40) )
+insert into info values('This is info!');
+/c fishies;
+/c fishies;
+\c fishies
+create table info ( serial integer, varchar(40) );
+create table info ( serial integer, text varchar(40) );
+insert into info values('This is info!');
+insert into sometable values ('This is text!');
+insert into info values ('This is text!');
+insert into info values (1,'This is text!');
+\dt infp
+\dt info
+\dt fishies.info
+select * from info;
+drop fishies;
+postgres=# \q
+drop fishies;
+drop database fishies;
+create database fishies;
+\c fishied
+\c fishies
+create table info (ser serial, text text);
+select * from info;
+insert into info values('This is text!');
+\q
+\i tournament.sql
+exit;
+q
+q;
+quit
+quit;
+\i tournament.sql 
+CREATE DATABASE tournament;
+\c tournament;
+CREATE TABLE [Players] (id serial, name varchar(40));
+CREATE TABLE Players (id serial, name varchar(40));
+CREATE TABLE Matches (p1 integer, p2 integer, winner integer);
+SELECT count(*) FROM Players;
+\i tournament.sql
+SELECT count(*) FROM Players;
+SELECT count(*) FROM Players;
+\c tournament;
+SELECT count(*) FROM Players;
+\i tournament.sql
+CREATE VIEW Win_table AS SELECT winner, count(*) as wins from Matches group by winner;
+select * from matches;
+\c tournament;
+CREATE VIEW Win_table AS SELECT winner, count(*) as wins from Matches group by winner;
+select * from win_table 
+;
+CREATE VIEW as Matches_table winner, count(*) as matches from Matches group by p1;
+CREATE VIEW Matches_table as winner, count(*) as matches from Matches group by p1;
+CREATE VIEW Matches_table as SELECT winner, count(*) as matches from Matches group by p1;
+CREATE VIEW Matches_table as SELECT P1, count(*) as matches from Matches group by p1;
+SELECT * FROM Matches_table;
+\c tournament;
+    SELECT Players.id, Players.name, win_table.wins, matches_table.matches
+        from Players join win_table
+            on Players.id = win_table.winner
+                    join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+q
+;
+insert into players (name) values 'Anton';
+insert into players (name) values ('Anton');
+select * from players
+;
+    SELECT Players.id, Players.name, win_table.wins, matches_table.matches
+        from Players join win_table
+            on Players.id = win_table.winner
+                    join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+    SELECT Players.id, Players.name, win_table.wins, matches_table.matches
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+\c tournament;
+select * from players;
+select * from mathches;
+select * from matches;
+    SELECT Players.id, Players.name, win_table.wins, matches_table.matches
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+/c tournament
+;
+\c tournament
+;
+CREATE VIEW standings_table as
+    SELECT Players.id, Players.name, win_table.wins, matches_table.matches
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+select * from standings_table;
+    UPDATE standings_table
+    SET Matches = 0
+    WHERE Matches IS NULL;
+DROP standings_table;
+drop view standings_table;
+CREATE VIEW standings_table as
+    SELECT Players.id, Players.name, ISNULL(win_table.wins, 0 ), ISNULL(matches_table.matches, 0 )
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+drop view standings_table;
+CREATE VIEW standings_table as
+    SELECT Players.id, Players.name, win_table.wins, matches_table.matches,
+           CASE WHEN win_table.wins=null THEN 0
+            WHEN matches_table.matches=null THEN 0
+       END
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+select * from standings_table 
+;
+drop view standings_table;
+CREATE VIEW standings_table as
+    SELECT Players.id, Players.name,
+           win_table.wins WHEN win_table.wins=null THEN 0
+       END,
+       matches_table.matches WHEN matches_table.matches=null THEN 0
+       END
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+drop view standings_table;
+CREATE VIEW standings_table as
+    SELECT Players.id, Players.name, COALESCE(win_table.wins,0), COALESCE(matches_table.matches,0)
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+CREATE VIEW standings_table as
+    SELECT Players.id, Players.name, isnull(win_table.wins,0), isnull(matches_table.matches,0)
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+CREATE VIEW standings_table as
+    SELECT Players.id, Players.name, ifnull(win_table.wins,0), ifnull(matches_table.matches,0)
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+CREATE VIEW standings_table as
+    SELECT Players.id, Players.name, coalesce(win_table.wins,0), coalesce(matches_table.matches,0)
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+CREATE VIEW standings_table as
+    SELECT Players.id, Players.name, coalesce(win_table.wins,0) as wins, coalesce(matches_table.matches,0) as matches
+        from Players left join win_table
+            on Players.id = win_table.winner
+                    left join matches_table
+            on Players.id = matches_table.p1
+                order by wins;
+select * from standings_table;
+\c tournament 
+select * from standings_table;
+select * from matches;
+\s tournament
+\s tournament;
